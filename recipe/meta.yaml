@@ -1,5 +1,5 @@
 {% set name = "nurikit" %}
-{% set version = "0.1.0a14.post0" %}
+{% set version = "0.1.0a14.post1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
-  sha256: ea09ad3ba36c1985c07422c6a1522e84ad67878898c482ef9921d9eb1293ed39
+  sha256: af4d7702fa51671d3bbe5e17474d1116e6763b5a466b49f3be5861b83d422411
 
 build:
   script: |
     export CMAKE_ARGS="${CMAKE_ARGS} -GNinja -DNURI_PREBUILT_ABSL=OFF -DBUILD_TESTING=OFF"
     {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 2
+  number: 0
   skip: true  # [win]
   skip: true  # [linux and not x86_64]
 
