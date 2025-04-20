@@ -18,6 +18,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '18'
+libabseil:
+- '20250127'
 libboost_devel:
 - '1.86'
 macos_machine:
