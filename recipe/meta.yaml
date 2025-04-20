@@ -49,8 +49,7 @@ outputs:
     test:
       commands:
         - "$PREFIX/bin/nuri"
-        - test -f "$PREFIX/lib/libnuri.so"     # [linux]
-        - test -f "$PREFIX/lib/libnuri.dylib"  # [osx]
+        - test -f "$PREFIX/lib/libnuri${SHLIB_EXT}"
         - test -f "$PREFIX/include/nuri/nurikit_config.h"
 
   - name: nurikit
