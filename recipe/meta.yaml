@@ -41,8 +41,8 @@ outputs:
         - cmake >=3.16
         - ninja
       host:
-        - libboost-devel >=1.82
-        - libabseil >=20240116
+        - libboost-devel
+        - libabseil
         - eigen >=3.4
         - spectralib >=1.0
 
@@ -80,8 +80,8 @@ outputs:
         - pybind11                            # [build_platform != target_platform]
       host:
         - python
-        - libboost-devel >=1.82
-        - libabseil >=20240116
+        - libboost-devel
+        - libabseil
         - eigen >=3.4
         - pybind11 >=2.12  # For numpy 2
         - scikit-build-core >=0.10
