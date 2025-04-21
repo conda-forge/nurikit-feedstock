@@ -8,9 +8,13 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
   sha256: af4d7702fa51671d3bbe5e17474d1116e6763b5a466b49f3be5861b83d422411
+  # NOTE: Remove these on next release
+  patches:
+    - patches/0001-fix-fmt-mmcif-avoid-insert-function.patch
+    - patches/0002-test-python-fmt-check-more-attributes.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 outputs:
@@ -27,7 +31,7 @@ outputs:
         cmake --build build --target install/strip
 
       run_exports:
-        - ${{ pin_subpackage("libnurikit", exact=True) }}
+        - {{ pin_subpackage("libnurikit", exact=True) }}
 
       ignore_run_exports_from:
         # We use headers only, but need -devel instead -headers for cmake
@@ -96,8 +100,14 @@ outputs:
         - nuri
       commands:
         - pip check
+        - pytest -vs
+      source_files:
+        - pyproject.toml
+        - python/test
+        - test/test_data
       requires:
         - pip
+        - pytest
 
 about:
   home: https://github.com/seoklab/nurikit
