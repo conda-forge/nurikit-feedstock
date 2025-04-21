@@ -96,8 +96,14 @@ outputs:
         - nuri
       commands:
         - pip check
+        - pytest -vs
+      source_files:
+        - pyproject.toml
+        - python/test
+        - test/test_data
       requires:
         - pip
+        - pytest
 
 about:
   home: https://github.com/seoklab/nurikit
