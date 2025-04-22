@@ -53,12 +53,39 @@ outputs:
         - libabseil
         - eigen >=3.4
         - spectralib >=1.0
+      run_constrained:
+        - {{ pin_compatible("libboost-headers", max_pin="x.x") }}
 
     test:
       commands:
         - nuri
         - test -f "$PREFIX/lib/libnuri${SHLIB_EXT}"
         - test -f "$PREFIX/include/nuri/nurikit_config.h"
+        - |
+          cmake -Bbuild -S. ${CMAKE_ARGS} -GNinja \
+            -DNURI_BUILD_LIB=OFF \
+            -DNURI_BUILD_PYTHON=OFF \
+            -DNURI_PREBUILT_ABSL=OFF \
+            -DNURI_FORCE_VERSION="${PKG_VERSION}" \
+            -DBUILD_TESTING=ON
+          cmake --build build --target all -j "${CPU_COUNT}"
+
+          cd build
+          ctest -C Release -T test --output-on-failure -j "${CPU_COUNT}"
+      source_files:
+        - CMakeLists.txt
+        - cmake
+        - test
+      requires:
+        - {{ compiler('c') }}
+        - {{ stdlib('c') }}
+        - {{ compiler('cxx') }}
+        - cmake >=3.16
+        - ninja
+        - libboost-devel
+        - libabseil
+        - eigen
+        - gtest
 
   - name: nurikit
 

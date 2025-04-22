@@ -1,0 +1,72 @@
+From e3c18fb4c7d44d452fdff30e7ab3f0cc64f677ef Mon Sep 17 00:00:00 2001
+From: Nuri Jung <jnooree@snu.ac.kr>
+Date: Tue, 22 Apr 2025 11:37:16 +0900
+Subject: [PATCH 6/6] build: add doctest-only option
+
+---
+ CMakeLists.txt             | 3 ++-
+ python/CMakeLists.txt      | 2 +-
+ python/docs/CMakeLists.txt | 6 ++----
+ 3 files changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index cce54aaa..db06ad28 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -31,6 +31,7 @@ option(NURI_BUILD_LIB "Build NuriKit library" ON)
+ option(NURI_BUILD_PYTHON "Build Python bindings" ON)
+ option(NURI_BUILD_DOCS "Build documentation" OFF)
+ option(NURI_BUILD_PYTHON_DOCS "Build python documentation" OFF)
++option(NURI_BUILD_PYTHON_DOCTEST "Build python doctest" OFF)
+ 
+ option(NURI_PREBUILT_ABSL "Download prebuilt abseil binary" ON)
+ option(NURI_INSTALL_RPATH "Install with RPATH when building full library" ON)
+@@ -271,7 +272,7 @@ if(NURI_BUILD_FUZZING)
+   add_subdirectory(fuzz)
+ endif()
+ 
+-if(NURI_BUILD_PYTHON OR NURI_BUILD_PYTHON_DOCS OR BUILD_TESTING)
++if(NURI_BUILD_PYTHON OR NURI_BUILD_PYTHON_DOCS OR NURI_BUILD_PYTHON_DOCTEST)
+   if(NOT SKBUILD)
+     configure_file(
+       pyproject.toml.in
+diff --git a/python/CMakeLists.txt b/python/CMakeLists.txt
+index 3f6dec1f..c418392e 100644
+--- a/python/CMakeLists.txt
++++ b/python/CMakeLists.txt
+@@ -23,6 +23,6 @@ if(NURI_BUILD_PYTHON)
+   add_subdirectory(src)
+ endif()
+ 
+-if(NURI_BUILD_PYTHON_DOCS OR BUILD_TESTING)
++if(NURI_BUILD_PYTHON_DOCS OR NURI_BUILD_PYTHON_DOCTEST)
+   add_subdirectory(docs)
+ endif()
+diff --git a/python/docs/CMakeLists.txt b/python/docs/CMakeLists.txt
+index 1304d3f0..fcb95f1d 100644
+--- a/python/docs/CMakeLists.txt
++++ b/python/docs/CMakeLists.txt
+@@ -11,10 +11,8 @@ find_package_handle_standard_args(Sphinx DEFAULT_MSG SPHINX_EXECUTABLE)
+ 
+ if(Sphinx_FOUND)
+   message(STATUS "Sphinx found")
+-elseif(NURI_BUILD_PYTHON_DOCS)
+-  message(FATAL_ERROR "Sphinx not found; cannot build docs")
+ else()
+-  message(NOTICE "Sphinx not found; cannot run doctest")
++  message(SEND_ERROR "Sphinx not found; cannot build docs or run doctest")
+   return()
+ endif()
+ 
+@@ -43,7 +41,7 @@ if(NURI_BUILD_PYTHON_DOCS)
+   endif()
+ endif()
+ 
+-if(BUILD_TESTING)
++if(NURI_BUILD_PYTHON_DOCTEST)
+   add_custom_target(NuriPythonDoctest
+     COMMAND ${CMAKE_COMMAND} -E env ${SANITIZER_ENVS}
+     ${SPHINX_EXECUTABLE}
+-- 
+2.49.0
+
