@@ -12,6 +12,10 @@ source:
   patches:
     - patches/0001-fix-fmt-mmcif-avoid-insert-function.patch
     - patches/0002-test-python-fmt-check-more-attributes.patch
+    - patches/0003-build-refactor-version-resolution.patch
+    - patches/0004-build-output-to-source-directory-only-for-stub-build.patch
+    - patches/0005-build-enable-test-only-build.patch
+    - patches/0006-build-add-doctest-only-option.patch
 
 build:
   number: 2
@@ -65,7 +69,7 @@ outputs:
           -DNURI_PREBUILT_ABSL=OFF \
           -DBUILD_TESTING=OFF"
         export CMAKE_BUILD_PARALLEL_LEVEL="${CPU_COUNT}"
-        {{ PREFIX }}/bin/python -m pip install . -vv --no-deps --no-build-isolation
+        {{ PREFIX }}/bin/python -m pip install . -vv --no-deps
 
       ignore_run_exports_from:
         # We use headers only, but need -devel instead -headers for cmake
