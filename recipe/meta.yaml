@@ -1,5 +1,5 @@
 {% set name = "nurikit" %}
-{% set version = "0.1.0a14.post1" %}
+{% set version = "0.1.0a15" %}
 
 package:
   name: nurikit-split
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
-  sha256: af4d7702fa51671d3bbe5e17474d1116e6763b5a466b49f3be5861b83d422411
+  sha256: 4186aa235c9b02fa941c5a133ca7e19016c7c62510fd24bc3306ad95dc2072bf
   # NOTE: Remove these on next release
   patches:
     - patches/0001-fix-fmt-mmcif-avoid-insert-function.patch
@@ -18,7 +18,7 @@ source:
     - patches/0006-build-add-doctest-only-option.patch
 
 build:
-  number: 6
+  number: 0
   skip: true  # [win]
 
 outputs:
