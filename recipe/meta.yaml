@@ -1,5 +1,5 @@
 {% set name = "nurikit" %}
-{% set version = "0.1.0a16" %}
+{% set version = "0.1.0b1" %}
 
 package:
   name: nurikit-split
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
-  sha256: 08bda44b8bb8b5ceebb76f1a4d70e2a78d7847df592e3545155357dc82551a44
+  sha256: 16fbf0f11a43b07d1efbc4e00fb28c0fa04846297d458e3df9590983fddd10d5
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 outputs:
