@@ -78,6 +78,7 @@ outputs:
         - libboost-devel
         - libabseil
         - eigen
+        - eigen-abi-devel
         - gtest
 
   - name: nurikit
