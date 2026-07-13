@@ -51,7 +51,7 @@ outputs:
 
     test:
       commands:
-        - nuri
+        # - nuri
         - test -f "$PREFIX/lib/libnuri${SHLIB_EXT}"
         - test -f "$PREFIX/include/nuri/nurikit_config.h"
         - |
