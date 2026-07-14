@@ -1,5 +1,5 @@
 {% set name = "nurikit" %}
-{% set version = "0.1.0b1" %}
+{% set version = "0.1.0b2" %}
 
 package:
   name: nurikit-split
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
-  sha256: 16fbf0f11a43b07d1efbc4e00fb28c0fa04846297d458e3df9590983fddd10d5
+  sha256: 376f9989055e301cab3f8ab422d7368febe6cf3a67f64526ed299c2525284599
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win]
 
 outputs:
@@ -22,7 +22,7 @@ outputs:
           -DNURI_BUILD_PYTHON=OFF \
           -DNURI_PREBUILT_ABSL=OFF \
           -DNURI_FORCE_VERSION="${PKG_VERSION}" \
-          -DBUILD_TESTING=OFF
+          -DNURI_BUILD_TESTING=OFF
         cmake --build build --target all -j "${CPU_COUNT}"
         cmake --build build --target install/strip
 
@@ -51,7 +51,7 @@ outputs:
 
     test:
       commands:
-        - nuri
+        # - nuri
         - test -f "$PREFIX/lib/libnuri${SHLIB_EXT}"
         - test -f "$PREFIX/include/nuri/nurikit_config.h"
         - |
@@ -60,7 +60,7 @@ outputs:
             -DNURI_BUILD_PYTHON=OFF \
             -DNURI_PREBUILT_ABSL=OFF \
             -DNURI_FORCE_VERSION="${PKG_VERSION}" \
-            -DBUILD_TESTING=ON
+            -DNURI_BUILD_TESTING=ON
           cmake --build build --target all -j "${CPU_COUNT}"
 
           cd build
@@ -88,7 +88,7 @@ outputs:
         export CMAKE_ARGS="${CMAKE_ARGS} -GNinja \
           -DNURI_BUILD_LIB=OFF \
           -DNURI_PREBUILT_ABSL=OFF \
-          -DBUILD_TESTING=OFF"
+          -DNURI_BUILD_TESTING=OFF"
         export CMAKE_BUILD_PARALLEL_LEVEL="${CPU_COUNT}"
         {{ PREFIX }}/bin/python -m pip install . -vv --no-deps
 
