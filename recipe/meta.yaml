@@ -1,13 +1,13 @@
 {% set name = "nurikit" %}
-{% set version = "0.1.0b2" %}
+{% set version = "0.1.0b3" %}
 
 package:
   name: nurikit-split
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
-  sha256: 376f9989055e301cab3f8ab422d7368febe6cf3a67f64526ed299c2525284599
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/nurikit-{{ version }}.tar.gz
+  sha256: f41d4782254157c5f3f158c96115a2b3be9f5a55c01cbfd9abfabf2c750a44ce
 
 build:
   number: 0
@@ -68,6 +68,7 @@ outputs:
       source_files:
         - CMakeLists.txt
         - cmake
+        - src
         - test
       requires:
         - {{ compiler('c') }}
