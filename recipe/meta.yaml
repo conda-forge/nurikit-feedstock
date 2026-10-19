@@ -68,6 +68,7 @@ outputs:
       source_files:
         - CMakeLists.txt
         - cmake
+        - src
         - test
       requires:
         - {{ compiler('c') }}
