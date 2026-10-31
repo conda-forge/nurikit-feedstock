@@ -19,7 +19,7 @@ cxx_compiler_version:
 eigen_abi_devel:
 - '3.4'
 libabseil:
-- '20260526'
+- '20260817'
 libboost_devel:
 - '1.90'
 macos_machine:
